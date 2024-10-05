@@ -23,7 +23,7 @@ jobs:
       run: |
         git config --local user.name "GitHub Actions"
         git config --local user.email "actions@github.com"
-        git add main.pdf
+        git add RESUME.pdf
         git commit -m "Added new file"
 
     - name: Fetch all branches
