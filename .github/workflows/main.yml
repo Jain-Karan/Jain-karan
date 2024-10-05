@@ -44,8 +44,5 @@ jobs:
 
     - name: Push changes to "pdf"
       run: git push origin pdf
-
-    - name: Checkout "main" branch
-      run: git checkout main
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
