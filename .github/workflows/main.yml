@@ -47,3 +47,5 @@ jobs:
 
     - name: Checkout "main" branch
       run: git checkout main
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
