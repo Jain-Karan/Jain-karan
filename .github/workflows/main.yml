@@ -1,0 +1,49 @@
+name: Create File and Merge Branches
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_and_merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+
+    - name: Compile LaTeX document
+      uses: xu-cheng/latex-action@v3
+      with:
+          root_file: main.tex
+
+    - name: Commit the new file
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "actions@github.com"
+        git add main.pdf
+        git commit -m "Added new file"
+
+    - name: Fetch all branches
+      run: git fetch --all
+
+    - name: Checkout "pdf" branch
+      run: git checkout -B pdf origin/pdf
+
+    - name: Pull latest changes from "pdf"
+      run: git pull origin pdf
+
+    - name: Merge "main" into "pdf" (resolve conflicts by keeping "main")
+      run: |
+        git merge main --allow-unrelated-histories || true
+        git checkout --theirs . # Keep changes from "main"
+        git add .
+        git commit -m "Resolved conflict by keeping changes from main"
+
+    - name: Push changes to "pdf"
+      run: git push origin pdf
+
+    - name: Checkout "main" branch
+      run: git checkout main
