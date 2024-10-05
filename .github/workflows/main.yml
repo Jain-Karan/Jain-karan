@@ -17,7 +17,7 @@ jobs:
     - name: Compile LaTeX document
       uses: xu-cheng/latex-action@v3
       with:
-          root_file: main.tex
+          root_file: RESUME.tex
 
     - name: Commit the new file
       run: |
